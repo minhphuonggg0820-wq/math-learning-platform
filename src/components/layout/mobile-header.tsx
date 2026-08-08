@@ -12,14 +12,14 @@ export function MobileHeader() {
 
   return (
     <header className="sticky top-0 z-40 flex h-14 items-center justify-between border-b border-slate-200/80 bg-white/90 px-4 backdrop-blur-md dark:border-slate-800/80 dark:bg-slate-900/90 md:hidden">
-      <Link href="/" className="flex items-center gap-2">
-        <Brain className="h-6 w-6 text-indigo-600 dark:text-indigo-400" />
+      <Link href="/" className="flex items-center gap-2 min-w-0 shrink">
+        <Brain className="h-6 w-6 shrink-0 text-indigo-600 dark:text-indigo-400" />
         <span className="min-w-0 truncate bg-gradient-to-r from-indigo-600 via-sky-500 to-emerald-500 bg-clip-text text-xl font-black text-transparent">
           MathVerse
         </span>
       </Link>
 
-      <div className="flex items-center gap-1.5 sm:gap-3">
+      <div className="flex shrink-0 items-center gap-1.5 sm:gap-3">
         <div className="flex shrink-0 whitespace-nowrap items-center gap-1.5 rounded-full bg-amber-50 px-2.5 py-1 text-xs font-bold text-amber-700 dark:bg-amber-950/40 dark:text-amber-300 border border-amber-200/60 dark:border-amber-800/50">
           <span>Lv.{levelInfo.level}</span>
           <span className="text-amber-500">|</span>

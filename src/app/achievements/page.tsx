@@ -162,36 +162,36 @@ export default function AchievementsPage() {
               <CardDescription>Lịch sử nhận XP của bạn</CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="space-y-6 relative before:absolute before:inset-0 before:ml-5 before:-translate-x-px md:before:mx-auto md:before:translate-x-0 before:h-full before:w-0.5 before:bg-gradient-to-b before:from-transparent before:via-slate-300 before:to-transparent">
+              <div className="space-y-3">
                 {recentActivity && recentActivity.length > 0 ? (
                   recentActivity.map((activity, i) => {
                     let Icon = BookOpen
-                    let iconColor = "text-blue-500 bg-blue-100 dark:bg-blue-900"
+                    let iconColor = "text-blue-600 bg-blue-50 dark:bg-blue-950/40 dark:text-blue-400 border-blue-200/50"
                     
                     if (activity.type === "quiz") {
                       Icon = Brain
-                      iconColor = "text-purple-500 bg-purple-100 dark:bg-purple-900"
+                      iconColor = "text-purple-600 bg-purple-50 dark:bg-purple-950/40 dark:text-purple-400 border-purple-200/50"
                     } else if (activity.type === "game") {
                       Icon = Gamepad2
-                      iconColor = "text-emerald-500 bg-emerald-100 dark:bg-emerald-900"
+                      iconColor = "text-emerald-600 bg-emerald-50 dark:bg-emerald-950/40 dark:text-emerald-400 border-emerald-200/50"
                     } else if (activity.type === "badge") {
                       Icon = Award
-                      iconColor = "text-amber-500 bg-amber-100 dark:bg-amber-900"
+                      iconColor = "text-amber-600 bg-amber-50 dark:bg-amber-950/40 dark:text-amber-400 border-amber-200/50"
                     }
 
                     return (
-                      <div key={i} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group is-active">
-                        <div className={`flex items-center justify-center w-10 h-10 rounded-full border-4 border-white dark:border-slate-900 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2 shadow ${iconColor}`}>
+                      <div key={i} className="flex items-center gap-3.5 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all">
+                        <div className={`flex items-center justify-center w-10 h-10 rounded-xl border shrink-0 ${iconColor}`}>
                           <Icon size={18} />
                         </div>
-                        <div className="w-[calc(100%-4rem)] md:w-[calc(50%-2.5rem)] p-4 rounded border bg-card shadow-sm">
-                          <div className="flex items-center justify-between mb-1 gap-2">
-                            <h4 className="font-bold text-sm text-foreground truncate min-w-0">{activity.title}</h4>
-                            <span className="text-xs font-medium text-amber-500">+{activity.xp} XP</span>
-                          </div>
-                          <time className="block text-xs font-medium text-muted-foreground">
+                        <div className="flex-1 min-w-0">
+                          <h4 className="font-bold text-sm text-slate-800 dark:text-slate-200 truncate min-w-0">{activity.title}</h4>
+                          <time className="block text-xs font-medium text-slate-500 dark:text-slate-400 mt-0.5">
                             {new Date(activity.date).toLocaleDateString()}
                           </time>
+                        </div>
+                        <div className="shrink-0 flex items-center gap-1 font-bold text-amber-500 bg-amber-50 dark:bg-amber-500/10 px-2.5 py-1 rounded-full text-xs border border-amber-200/50">
+                          +{activity.xp} XP
                         </div>
                       </div>
                     )
