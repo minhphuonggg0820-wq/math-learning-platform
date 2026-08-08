@@ -51,7 +51,7 @@ export function FormulaCard({ formula, className }: FormulaCardProps) {
         </div>
       </div>
 
-      <div className="relative z-10 my-4 py-6 bg-slate-50 dark:bg-slate-900/50 rounded-lg items-center text-center w-full min-w-0 overflow-x-auto border border-slate-100 dark:border-slate-800/50">
+      <div className="relative z-10 my-4 py-6 px-4 bg-slate-50 dark:bg-slate-900/50 rounded-lg items-center text-center w-full min-w-0 overflow-x-auto border border-slate-100 dark:border-slate-800/50">
         <MathBlock math={formula.latex} className="text-xl" />
       </div>
 

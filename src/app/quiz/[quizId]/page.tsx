@@ -137,7 +137,7 @@ export default function QuizSessionPage({ params }: { params: Promise<{ quizId: 
   }
 
   return (
-    <div className="container py-8 max-w-4xl mx-auto min-h-[80vh] flex flex-col">
+    <div className="container mx-auto px-4 sm:px-6 py-8 max-w-4xl min-h-[80vh] flex flex-col">
       <AnimatePresence mode="wait">
         {quizState === "intro" && (
           <motion.div

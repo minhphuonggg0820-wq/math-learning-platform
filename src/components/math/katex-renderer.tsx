@@ -50,7 +50,7 @@ export function MathInline({ math, className }: { math: string; className?: stri
 export function MathBlock({ math, className }: { math: string; className?: string }) {
   return (
     <MathErrorBoundary fallback={() => <div className={cn("text-red-500 p-4 bg-red-50 dark:bg-red-950/20 rounded-md font-mono text-sm", className)}>{math}</div>}>
-      <div className={cn("overflow-x-auto py-2 text-center dark:text-slate-200", className)}>
+      <div className={cn("overflow-x-auto py-2 px-4 text-center dark:text-slate-200", className)}>
         <BlockMath math={math} />
       </div>
     </MathErrorBoundary>

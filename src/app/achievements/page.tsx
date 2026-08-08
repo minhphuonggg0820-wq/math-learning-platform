@@ -58,7 +58,7 @@ export default function AchievementsPage() {
       : userBadges.filter((b) => b.category === activeTab)
 
   return (
-    <div className="container max-w-6xl py-8 space-y-8">
+    <div className="container mx-auto px-4 sm:px-6 py-8 max-w-6xl space-y-8">
       <div className="flex items-center gap-3">
         <Trophy className="w-10 h-10 text-amber-500" />
         <div className="min-w-0 flex-1">

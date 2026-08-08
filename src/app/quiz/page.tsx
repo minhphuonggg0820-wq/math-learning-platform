@@ -84,7 +84,7 @@ export default function QuizHubPage() {
   });
 
   return (
-    <div className="container py-8 max-w-6xl mx-auto space-y-8">
+    <div className="container mx-auto px-4 sm:px-6 py-8 max-w-6xl space-y-8">
       {/* Header */}
       <div className="flex flex-col items-center text-center space-y-4 mb-12">
         <div className="p-4 bg-primary/10 rounded-full">
