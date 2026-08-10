@@ -2,14 +2,12 @@
 
 import React, { useState } from "react"
 import { motion } from "framer-motion"
-import { Trophy, Star, Target, Flame, BookOpen, Brain, Gamepad2, Award } from "lucide-react"
+import { Trophy, Star, Target, Flame, BookOpen, Brain, Gamepad2, Award, Sparkles } from "lucide-react"
 
 import { useAppState } from "@/lib/store"
-import { badges as mockBadges } from "@/lib/mock-data"
 import { getLevelFromXP } from "@/lib/utils"
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Progress } from "@/components/ui/progress"
 import { BadgeShowcase } from "@/components/gamification/badge-showcase"
 
@@ -18,18 +16,18 @@ const containerVariants = {
   visible: {
     opacity: 1,
     transition: {
-      staggerChildren: 0.1,
+      staggerChildren: 0.08,
     },
   },
 }
 
 const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
+  hidden: { y: 15, opacity: 0 },
   visible: { y: 0, opacity: 1 },
 }
 
 export default function AchievementsPage() {
-  const { xp, streak, badges, recentActivity, dispatch } = useAppState()
+  const { xp, streak, badges, recentActivity } = useAppState()
   const [activeTab, setActiveTab] = useState("all")
 
   const userBadges = badges.map((badge) => ({
@@ -45,11 +43,11 @@ export default function AchievementsPage() {
 
   const categories = [
     { id: "all", label: "Tất cả" },
-    { id: "Học tập", label: "Học tập" },
-    { id: "Quiz", label: "Quiz" },
-    { id: "Streak", label: "Streak" },
-    { id: "Game", label: "Game" },
-    { id: "Đặc biệt", label: "Đặc biệt" },
+    { id: "learning", label: "Học tập" },
+    { id: "quiz", label: "Quiz" },
+    { id: "streak", label: "Streak" },
+    { id: "game", label: "Game" },
+    { id: "special", label: "Đặc biệt" },
   ]
 
   const filteredBadges =
@@ -59,109 +57,116 @@ export default function AchievementsPage() {
 
   return (
     <div className="container mx-auto px-4 sm:px-6 py-8 max-w-6xl space-y-8">
-      <div className="flex items-center gap-3">
-        <Trophy className="w-10 h-10 text-amber-500" />
-        <div className="min-w-0 flex-1">
-          <h1 className="text-3xl font-bold tracking-tight">Thành tích</h1>
-          <p className="text-muted-foreground">Bộ sưu tập huy hiệu và thành tích của bạn</p>
+      {/* Hero Header */}
+      <div className="bg-gradient-to-r from-amber-900 via-amber-800 to-indigo-900 text-white rounded-3xl p-6 sm:p-8 shadow-xl border border-amber-700/50 relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
+        <div className="absolute -right-16 -top-16 w-64 h-64 bg-amber-500/20 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="relative z-10 flex items-start sm:items-center gap-4">
+          <div className="p-3.5 bg-white/10 backdrop-blur-md rounded-2xl border border-white/15 text-amber-300 shrink-0">
+            <Trophy className="w-8 h-8" />
+          </div>
+          <div>
+            <div className="inline-flex items-center gap-1.5 px-3 py-0.5 rounded-full bg-white/10 text-xs font-semibold text-amber-300 mb-2 border border-white/15">
+              <Sparkles className="w-3.5 h-3.5" /> Bộ sưu tập danh dự
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-extrabold tracking-tight">Thành tích & Huy hiệu</h1>
+            <p className="text-amber-200 text-xs sm:text-sm mt-1 max-w-xl leading-relaxed">
+              Theo dõi cột mốc phát triển, thu thập huy hiệu danh giá và lịch sử nhận điểm XP của bạn.
+            </p>
+          </div>
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card className="bg-gradient-to-br from-amber-500 to-orange-600 text-white border-none">
-          <CardHeader className="pb-2">
-            <CardTitle className="text-lg font-medium text-amber-50">Tổng XP</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-2">
-              <Star className="w-8 h-8 fill-current" />
-              <span className="text-4xl font-bold">{currentXP}</span>
-            </div>
-          </CardContent>
-        </Card>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5">
+        <div className="bg-gradient-to-br from-amber-500 to-orange-600 text-white p-5 rounded-2xl shadow-lg border border-amber-400/30 flex flex-col justify-between">
+          <p className="text-xs font-bold text-amber-100 uppercase tracking-wider">Tổng XP Tích lũy</p>
+          <div className="flex items-center gap-2 mt-2">
+            <Star className="w-8 h-8 fill-amber-200 text-amber-200" />
+            <span className="text-3xl font-black">{currentXP}</span>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Cấp độ hiện tại</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-2">
-              <Target className="w-8 h-8 text-blue-500" />
-              <span className="text-3xl font-bold text-foreground">Lv. {currentLevel.level}</span>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Cấp độ Hiện tại</p>
+          <div className="flex items-center gap-2 mt-2">
+            <Target className="w-8 h-8 text-indigo-500" />
+            <span className="text-3xl font-black text-slate-900 dark:text-white">Lv. {currentLevel.level}</span>
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Huy hiệu</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-end gap-2">
-              <span className="text-3xl font-bold text-foreground">{unlockedCount}</span>
-              <span className="text-lg text-muted-foreground pb-1">/ {totalCount}</span>
-            </div>
-            <Progress value={(unlockedCount / totalCount) * 100} className="mt-3" size="sm" variant="accent" />
-          </CardContent>
-        </Card>
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+          <div className="flex justify-between items-center">
+            <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Huy hiệu Đã mở</p>
+            <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400">{unlockedCount}/{totalCount}</span>
+          </div>
+          <div className="mt-2">
+            <div className="text-3xl font-black text-slate-900 dark:text-white">{unlockedCount}</div>
+            <Progress value={(unlockedCount / totalCount) * 100} className="mt-2.5 h-2" />
+          </div>
+        </div>
 
-        <Card>
-          <CardHeader className="pb-2">
-            <CardTitle className="text-sm font-medium text-muted-foreground">Chuỗi học tập</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex items-center gap-2">
-              <Flame className="w-8 h-8 text-rose-500 fill-current" />
-              <span className="text-3xl font-bold text-foreground">{streak} ngày</span>
-            </div>
-          </CardContent>
-        </Card>
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-2xl border border-slate-200/80 dark:border-slate-800 shadow-sm flex flex-col justify-between">
+          <p className="text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider">Chuỗi ngày Liên tục</p>
+          <div className="flex items-center gap-2 mt-2">
+            <Flame className="w-8 h-8 text-rose-500 fill-rose-500/20" />
+            <span className="text-3xl font-black text-slate-900 dark:text-white">{streak} ngày</span>
+          </div>
+        </div>
       </div>
 
+      {/* Badges Section & Recent Activity */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         <div className="lg:col-span-2 space-y-6">
           <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
-            <h2 className="text-2xl font-semibold tracking-tight">Huy hiệu</h2>
+            <h2 className="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white">Huy hiệu đạt được</h2>
             
-            <Tabs defaultValue="all" className="w-full sm:w-auto overflow-x-auto" onValueChange={setActiveTab}>
-              <TabsList className="w-max">
-                {categories.map((cat) => (
-                  <TabsTrigger key={cat.id} value={cat.id}>
-                    {cat.label}
-                  </TabsTrigger>
-                ))}
-              </TabsList>
-            </Tabs>
+            {/* Category Filter Pills */}
+            <div className="flex flex-wrap gap-1.5 bg-slate-100 dark:bg-slate-800/60 p-1.5 rounded-2xl border border-slate-200/60 dark:border-slate-700/50">
+              {categories.map((cat) => (
+                <button
+                  key={cat.id}
+                  onClick={() => setActiveTab(cat.id)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-bold transition-all ${
+                    activeTab === cat.id
+                      ? "bg-white dark:bg-slate-900 text-indigo-600 dark:text-indigo-400 shadow-sm"
+                      : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                  }`}
+                >
+                  {cat.label}
+                </button>
+              ))}
+            </div>
           </div>
 
           <motion.div
             variants={containerVariants}
             initial="hidden"
             animate="visible"
-            key={activeTab} // re-animate on tab change
-            className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6 p-6 border rounded-xl bg-card/50"
+            className="grid grid-cols-2 sm:grid-cols-3 gap-6 bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200/80 dark:border-slate-800 shadow-sm"
           >
             {filteredBadges.length > 0 ? (
               filteredBadges.map((badge) => (
                 <motion.div key={badge.id} variants={itemVariants} className="flex justify-center">
-                  <BadgeShowcase badge={badge as any} size="md" />
+                  <BadgeShowcase badge={badge} size="md" />
                 </motion.div>
               ))
             ) : (
-              <div className="col-span-full py-8 text-center text-muted-foreground">
+              <div className="col-span-full py-8 text-center text-slate-500 dark:text-slate-400 text-sm">
                 Không tìm thấy huy hiệu nào trong danh mục này.
               </div>
             )}
           </motion.div>
         </div>
 
-        <div>
-          <Card>
-            <CardHeader>
-              <CardTitle className="text-xl">Hoạt động Gần đây</CardTitle>
+        {/* Recent Activity Section */}
+        <div className="space-y-4">
+          <Card className="border-slate-200/80 dark:border-slate-800 shadow-sm rounded-3xl overflow-hidden">
+            <CardHeader className="bg-slate-50/50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800/80">
+              <CardTitle className="text-xl font-extrabold">Hoạt động Gần đây</CardTitle>
               <CardDescription>Lịch sử nhận XP của bạn</CardDescription>
             </CardHeader>
-            <CardContent>
+            <CardContent className="p-4">
               <div className="space-y-3">
                 {recentActivity && recentActivity.length > 0 ? (
                   recentActivity.map((activity, i) => {
@@ -180,7 +185,7 @@ export default function AchievementsPage() {
                     }
 
                     return (
-                      <div key={i} className="flex items-center gap-3.5 p-3.5 rounded-xl border border-slate-200/80 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all">
+                      <div key={i} className="flex items-center gap-3.5 p-3.5 rounded-2xl border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-900 shadow-sm hover:shadow-md transition-all">
                         <div className={`flex items-center justify-center w-10 h-10 rounded-xl border shrink-0 ${iconColor}`}>
                           <Icon size={18} />
                         </div>
@@ -197,7 +202,7 @@ export default function AchievementsPage() {
                     )
                   })
                 ) : (
-                  <div className="text-center py-4 text-muted-foreground">
+                  <div className="text-center py-4 text-slate-500 dark:text-slate-400 text-sm">
                     Chưa có hoạt động nào.
                   </div>
                 )}

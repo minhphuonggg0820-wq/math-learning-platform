@@ -5,7 +5,6 @@ import { motion } from "framer-motion";
 import { Trophy, RotateCcw, Home, Star, Clock, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
-import Link from "next/link";
 
 interface QuizResultsProps {
   totalQuestions: number;
@@ -40,31 +39,31 @@ export default function QuizResults({
   const strokeDashoffset = circleCircumference - (percentage / 100) * circleCircumference;
 
   return (
-    <Card className="w-full max-w-lg mx-auto border-none shadow-xl bg-white dark:bg-slate-900 overflow-hidden relative">
+    <Card className="w-full max-w-lg mx-auto border border-slate-200/80 dark:border-slate-800 shadow-xl bg-white dark:bg-slate-900 rounded-3xl overflow-hidden relative">
       {/* Decorative top bg */}
-      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-primary/20 to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-36 bg-gradient-to-b from-indigo-500/15 to-transparent pointer-events-none" />
       
-      <CardContent className="p-4 sm:p-8 pt-8 sm:pt-12 relative z-10">
+      <CardContent className="p-6 sm:p-8 pt-8 sm:pt-10 relative z-10">
         <div className="flex flex-col items-center">
           
           {/* Stars */}
-          <div className="flex space-x-2 mb-8">
+          <div className="flex space-x-2 mb-6">
             {[1, 2, 3].map((star) => (
               <motion.div
                 key={star}
                 initial={{ opacity: 0, scale: 0, rotate: -45 }}
                 animate={{ opacity: 1, scale: 1, rotate: 0 }}
-                transition={{ delay: 0.5 + star * 0.1, type: "spring" }}
+                transition={{ delay: 0.3 + star * 0.15, type: "spring" }}
               >
                 <Star 
-                  className={`w-10 h-10 ${star <= stars ? 'fill-amber-400 text-amber-400' : 'fill-slate-200 dark:fill-slate-800 text-slate-200 dark:text-slate-800'}`} 
+                  className={`w-10 h-10 ${star <= stars ? 'fill-amber-400 text-amber-400 drop-shadow-md' : 'fill-slate-200 dark:fill-slate-800 text-slate-200 dark:text-slate-800'}`} 
                 />
               </motion.div>
             ))}
           </div>
 
           {/* Score Circle */}
-          <div className="relative w-40 h-40 mb-8">
+          <div className="relative w-40 h-40 mb-6">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 140 140">
               <circle
                 cx="70"
@@ -83,10 +82,10 @@ export default function QuizResults({
                 stroke="currentColor"
                 strokeWidth="12"
                 strokeLinecap="round"
-                className="text-primary"
+                className={percentage >= 70 ? "text-emerald-500" : percentage >= 40 ? "text-indigo-600" : "text-amber-500"}
                 initial={{ strokeDashoffset: circleCircumference }}
                 animate={{ strokeDashoffset }}
-                transition={{ duration: 1.5, ease: "easeOut", delay: 0.2 }}
+                transition={{ duration: 1.2, ease: "easeOut", delay: 0.2 }}
                 style={{
                   strokeDasharray: circleCircumference,
                 }}
@@ -96,8 +95,8 @@ export default function QuizResults({
               <motion.span 
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
-                className="text-4xl font-bold text-slate-900 dark:text-white"
+                transition={{ delay: 0.8 }}
+                className="text-4xl font-extrabold text-slate-900 dark:text-white"
               >
                 {percentage}%
               </motion.span>
@@ -107,44 +106,44 @@ export default function QuizResults({
           <motion.h2 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.2 }}
-            className="text-2xl font-bold text-center mb-8 break-words"
+            transition={{ delay: 1.0 }}
+            className="text-2xl font-black text-center mb-8 break-words text-slate-900 dark:text-white"
           >
-            {percentage >= 90 ? "Xuất sắc!" : 
-             percentage >= 70 ? "Làm tốt lắm!" : 
-             percentage >= 50 ? "Khá lắm!" : "Cần cố gắng hơn!"}
+            {percentage >= 90 ? "Xuất sắc! 🎉" : 
+             percentage >= 70 ? "Làm tốt lắm! 🌟" : 
+             percentage >= 50 ? "Khá lắm! 👍" : "Cần cố gắng hơn! 💪"}
           </motion.h2>
 
           {/* Stats Grid */}
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.4 }}
+            transition={{ delay: 1.2 }}
             className="grid grid-cols-2 gap-4 w-full mb-8"
           >
-            <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center">
+            <div className="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center text-center">
               <Target className="w-6 h-6 text-emerald-500 mb-2" />
-              <span className="text-2xl font-bold text-slate-900 dark:text-white">
+              <span className="text-2xl font-black text-slate-900 dark:text-white">
                 {correctAnswers}/{totalQuestions}
               </span>
-              <span className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium">Chính xác</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold mt-1">Chính xác</span>
             </div>
             
-            <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center">
+            <div className="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center text-center">
               <Clock className="w-6 h-6 text-blue-500 mb-2" />
-              <span className="text-2xl font-bold text-slate-900 dark:text-white">
+              <span className="text-2xl font-black text-slate-900 dark:text-white">
                 {timeString}
               </span>
-              <span className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium">Thời gian</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold mt-1">Thời gian</span>
             </div>
             
-            <div className="bg-slate-50 dark:bg-slate-800 p-4 rounded-2xl flex flex-col items-center justify-center text-center col-span-2">
+            <div className="bg-slate-50 dark:bg-slate-800/60 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 flex flex-col items-center justify-center text-center col-span-2">
               <Trophy className="w-6 h-6 text-amber-500 mb-2" />
               <div className="flex items-baseline space-x-1">
-                <span className="text-3xl font-bold text-amber-500">+{xpEarned}</span>
+                <span className="text-3xl font-black text-amber-500">+{xpEarned}</span>
                 <span className="text-sm font-bold text-amber-500">XP</span>
               </div>
-              <span className="text-xs text-slate-500 dark:text-slate-400 uppercase tracking-wider font-medium mt-1">Kinh nghiệm nhận được</span>
+              <span className="text-[11px] text-slate-500 dark:text-slate-400 uppercase tracking-wider font-bold mt-1">Kinh nghiệm nhận được</span>
             </div>
           </motion.div>
 
@@ -152,13 +151,13 @@ export default function QuizResults({
           <motion.div 
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ delay: 1.8 }}
-            className="flex w-full flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-4"
+            transition={{ delay: 1.4 }}
+            className="flex w-full flex-col sm:flex-row gap-3"
           >
-            <Button variant="outline" className="flex-1 h-12" onClick={onRetry}>
+            <Button variant="outline" className="flex-1 h-12 rounded-2xl font-bold border-slate-200 dark:border-slate-700" onClick={onRetry}>
               <RotateCcw className="w-4 h-4 mr-2" /> Làm lại
             </Button>
-            <Button className="flex-1 h-12" onClick={onBack}>
+            <Button className="flex-1 h-12 rounded-2xl font-bold bg-indigo-600 hover:bg-indigo-700 text-white shadow-md shadow-indigo-600/20" onClick={onBack}>
               <Home className="w-4 h-4 mr-2" /> Về Quiz Hub
             </Button>
           </motion.div>
