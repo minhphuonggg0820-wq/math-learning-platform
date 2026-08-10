@@ -177,31 +177,31 @@ export default function AlgebraBalancePage() {
           <div className="mb-8">
             <div className="text-muted-foreground text-lg mb-2">Số câu đúng</div>
             <div className="text-5xl md:text-6xl font-black text-transparent bg-clip-text bg-gradient-to-br from-emerald-500 to-teal-600">
-              {score} <span className="text-3xl text-muted-foreground">/ {challenges.length}</span>
+              {score} <span className="text-3xl text-slate-400">/ {challenges.length}</span>
             </div>
           </div>
           
           <div className="flex flex-wrap justify-center gap-4 sm:gap-8 mb-10">
             <div>
-              <div className="text-xl font-bold text-emerald-500">{accuracy}%</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">Chính xác</div>
+              <div className="text-xl font-black text-emerald-500">{accuracy}%</div>
+              <div className="text-xs text-slate-400 uppercase tracking-widest font-bold">Chính xác</div>
             </div>
             <div>
-              <div className="text-xl font-bold text-amber-500">+{score * 5}</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold">XP</div>
+              <div className="text-xl font-black text-amber-500">+{score * 5}</div>
+              <div className="text-xs text-slate-400 uppercase tracking-widest font-bold">XP</div>
             </div>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
               onClick={startGame}
-              className="bg-emerald-600 hover:bg-emerald-700 text-white font-medium py-3 px-8 rounded-xl shadow-md transition-colors"
+              className="bg-emerald-600 hover:bg-emerald-700 text-white font-bold py-3.5 px-8 rounded-full shadow-md transition-all active:scale-95"
             >
               Chơi lại
             </button>
             <Link 
               href="/games"
-              className="bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium py-3 px-8 rounded-xl shadow-sm transition-colors"
+              className="bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-white font-bold py-3.5 px-8 rounded-full shadow-sm transition-all active:scale-95 text-center"
             >
               Về trang Games
             </Link>
@@ -214,20 +214,20 @@ export default function AlgebraBalancePage() {
   const currentChallenge = challenges[currentIndex]
 
   return (
-    <div className="container mx-auto py-6 px-4 max-w-4xl min-h-[80vh] flex flex-col">
+    <div className="container mx-auto py-6 px-4 max-w-4xl min-h-[80vh] flex flex-col space-y-6">
       {/* Header Info */}
-      <div className="flex items-center justify-between mb-8">
-        <Link href="/games" className="p-2 bg-muted rounded-lg hover:bg-muted/80 transition-colors">
-          <ArrowRight className="w-5 h-5 rotate-180" />
+      <div className="flex items-center justify-between">
+        <Link href="/games" className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:bg-slate-50 transition-colors shadow-xs">
+          <ArrowRight className="w-5 h-5 rotate-180 text-slate-700 dark:text-slate-350" />
         </Link>
         
-        <div className="bg-muted px-4 py-2 rounded-full font-medium">
+        <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-5 py-2 rounded-full text-xs font-bold uppercase tracking-wider text-slate-500">
           Câu {currentIndex + 1} / {challenges.length}
         </div>
         
-        <div className="flex items-center gap-2">
-          <Trophy className="w-5 h-5 text-emerald-500" />
-          <span className="text-2xl font-bold">{score}</span>
+        <div className="flex items-center gap-2 bg-emerald-50 dark:bg-emerald-950 border border-emerald-200 dark:border-emerald-800 px-4 py-2 rounded-full font-bold text-emerald-600 dark:text-emerald-300">
+          <Trophy className="w-4 h-4 fill-emerald-500/20" />
+          <span className="text-lg font-black">{score}</span>
         </div>
       </div>
 
@@ -245,7 +245,7 @@ export default function AlgebraBalancePage() {
 
           {/* SVG Balance Scale */}
           <div className="relative z-10 w-full h-full flex flex-col items-center justify-end">
-            {/* The Beam and Pans - rotated together */}
+            {/* The Beam and Pans */}
             <motion.div 
               animate={{ rotate: tiltAngle }}
               transition={{ type: "spring", stiffness: 50, damping: 10 }}
@@ -256,7 +256,7 @@ export default function AlgebraBalancePage() {
               <div className="absolute left-0 -translate-x-1/2 top-full flex flex-col items-center">
                 <div className="w-1 h-32 bg-slate-300 dark:bg-slate-600 origin-top"></div>
                 <div className="w-24 h-6 bg-emerald-500/80 rounded-b-xl border-t-2 border-emerald-600 shadow-lg flex items-center justify-center p-2 relative -mt-1">
-                  <div className="absolute bottom-full mb-2 bg-background border shadow-sm px-3 py-1 rounded-lg text-lg font-bold min-w-16 text-center max-w-[140px] sm:max-w-xs overflow-x-auto">
+                  <div className="absolute bottom-full mb-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm px-3 py-1.5 rounded-xl text-lg font-extrabold min-w-16 text-center max-w-[140px] sm:max-w-xs overflow-x-auto text-slate-800 dark:text-slate-100">
                     <KatexRenderer math={currentChallenge.leftSide} inline={true} />
                   </div>
                 </div>
@@ -266,7 +266,7 @@ export default function AlgebraBalancePage() {
               <div className="absolute right-0 translate-x-1/2 top-full flex flex-col items-center">
                 <div className="w-1 h-32 bg-slate-300 dark:bg-slate-600 origin-top"></div>
                 <div className="w-24 h-6 bg-teal-500/80 rounded-b-xl border-t-2 border-teal-600 shadow-lg flex items-center justify-center p-2 relative -mt-1">
-                  <div className="absolute bottom-full mb-2 bg-background border shadow-sm px-3 py-1 rounded-lg text-lg font-bold min-w-16 text-center max-w-[140px] sm:max-w-xs overflow-x-auto">
+                  <div className="absolute bottom-full mb-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-sm px-3 py-1.5 rounded-xl text-lg font-extrabold min-w-16 text-center max-w-[140px] sm:max-w-xs overflow-x-auto text-slate-800 dark:text-slate-100">
                     <KatexRenderer math={currentChallenge.rightSide} inline={true} />
                   </div>
                 </div>
@@ -278,18 +278,18 @@ export default function AlgebraBalancePage() {
 
             {/* Fulcrum Base */}
             <div className="w-32 h-40 absolute bottom-0 flex flex-col items-center z-0">
-              <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-300 dark:fill-slate-700 stroke-slate-400 dark:stroke-slate-600" preserveAspectRatio="none">
+              <svg viewBox="0 0 100 100" className="w-full h-full fill-slate-350 dark:fill-slate-800 stroke-slate-400 dark:stroke-slate-700" preserveAspectRatio="none">
                 <path d="M50 0 L100 100 L0 100 Z" strokeWidth="2" />
               </svg>
-              <div className="w-40 h-4 bg-slate-400 dark:bg-slate-600 rounded-full mt-[-2px] shadow-lg"></div>
+              <div className="w-40 h-4 bg-slate-400 dark:bg-slate-700 rounded-full mt-[-2px] shadow-lg"></div>
             </div>
           </div>
         </div>
 
         {/* Input Area */}
-        <div className="w-full max-w-md bg-card border rounded-3xl p-6 shadow-sm">
+        <div className="w-full max-w-md bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
           <div className="flex flex-col items-center gap-6">
-            <div className="text-2xl flex items-center gap-3">
+            <div className="text-2xl flex items-center gap-3 font-extrabold text-slate-900 dark:text-white">
               <span className="italic font-serif">x</span> = 
               <input
                 type="number"
@@ -299,9 +299,9 @@ export default function AlgebraBalancePage() {
                   setFeedback(null)
                 }}
                 disabled={feedback === 'correct'}
-                className={`w-32 h-14 text-center text-2xl font-bold rounded-xl border-2 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 bg-background transition-colors
-                  ${feedback === 'correct' ? 'border-emerald-500 text-emerald-500 bg-emerald-50 dark:bg-emerald-950/20' : 
-                    feedback === 'wrong' ? 'border-destructive text-destructive bg-destructive/10' : 'border-input'}
+                className={`w-32 h-14 text-center text-2xl font-black rounded-2xl border-2 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 bg-slate-50 dark:bg-slate-950 transition-colors
+                  ${feedback === 'correct' ? 'border-emerald-500 text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-950/30' : 
+                    feedback === 'wrong' ? 'border-rose-500 text-rose-700 dark:text-rose-450 bg-rose-50/50 dark:bg-rose-950/20' : 'border-slate-200 dark:border-slate-800'}
                 `}
                 placeholder="?"
                 onKeyDown={(e) => {
@@ -314,10 +314,10 @@ export default function AlgebraBalancePage() {
               <button
                 onClick={handleCheck}
                 disabled={!inputValue.trim() || feedback === 'correct'}
-                className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-xl shadow-sm transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                className="w-full py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-bold rounded-full shadow-sm transition-all disabled:opacity-50 flex items-center justify-center gap-2 active:scale-98"
               >
                 {feedback === 'correct' ? (
-                  <><CheckCircle2 className="w-5 h-5" /> Chính xác!</>
+                  <><CheckCircle2 className="w-5 h-5 stroke-[2.5]" /> Chính xác!</>
                 ) : (
                   'Kiểm tra'
                 )}
@@ -329,7 +329,7 @@ export default function AlgebraBalancePage() {
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: 'auto' }}
                     exit={{ opacity: 0, height: 0 }}
-                    className="text-destructive text-sm text-center flex items-center justify-center gap-1"
+                    className="text-rose-600 dark:text-rose-400 text-sm font-bold text-center flex items-center justify-center gap-1.5"
                   >
                     <XCircle className="w-4 h-4" /> Chưa cân bằng, thử lại nhé!
                   </motion.div>
@@ -339,9 +339,9 @@ export default function AlgebraBalancePage() {
               <button
                 onClick={() => setShowHint(true)}
                 disabled={feedback === 'correct'}
-                className="text-sm text-muted-foreground hover:text-foreground flex items-center justify-center gap-1 mt-2 transition-colors"
+                className="text-sm font-bold text-slate-500 hover:text-slate-800 dark:hover:text-slate-250 flex items-center justify-center gap-1 mt-2 transition-colors cursor-pointer"
               >
-                <Lightbulb className="w-4 h-4" /> Xem gợi ý
+                <Lightbulb className="w-4 h-4 text-amber-500" /> Xem gợi ý
               </button>
 
               <AnimatePresence>
@@ -349,9 +349,9 @@ export default function AlgebraBalancePage() {
                   <motion.div
                     initial={{ opacity: 0, y: -10 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-amber-50 dark:bg-amber-950/30 text-amber-800 dark:text-amber-200 p-4 rounded-xl text-sm text-center border border-amber-200 dark:border-amber-900"
+                    className="bg-amber-50/95 dark:bg-amber-950/40 text-amber-950 dark:text-amber-200 p-4 rounded-2xl text-xs sm:text-sm font-semibold text-center border border-amber-200/80 dark:border-amber-800/60 shadow-inner leading-relaxed"
                   >
-                    <p className="font-medium">{currentChallenge.description}</p>
+                    <p className="font-bold">{currentChallenge.description}</p>
                   </motion.div>
                 )}
               </AnimatePresence>

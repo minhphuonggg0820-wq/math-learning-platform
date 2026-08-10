@@ -209,30 +209,30 @@ export default function SpeedFormulaPage() {
           </div>
           
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-10">
-            <div className="bg-muted/50 rounded-xl p-4">
-              <div className="text-2xl font-bold text-emerald-500">{correctCount}/{totalAnswered}</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold mt-1">Đúng</div>
+            <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800/60 rounded-2xl p-4">
+              <div className="text-2xl font-black text-emerald-500">{correctCount}/{totalAnswered}</div>
+              <div className="text-xs text-slate-400 uppercase tracking-widest font-bold mt-1">Đúng</div>
             </div>
-            <div className="bg-muted/50 rounded-xl p-4">
-              <div className="text-2xl font-bold text-amber-500">{accuracy}%</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold mt-1">Chính xác</div>
+            <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800/60 rounded-2xl p-4">
+              <div className="text-2xl font-black text-amber-500">{accuracy}%</div>
+              <div className="text-xs text-slate-400 uppercase tracking-widest font-bold mt-1">Chính xác</div>
             </div>
-            <div className="bg-muted/50 rounded-xl p-4">
-              <div className="text-2xl font-bold text-purple-500">x{maxCombo}</div>
-              <div className="text-xs text-muted-foreground uppercase tracking-wider font-semibold mt-1">Max Combo</div>
+            <div className="bg-slate-50 dark:bg-slate-800/60 border border-slate-100 dark:border-slate-800/60 rounded-2xl p-4">
+              <div className="text-2xl font-black text-indigo-500">x{maxCombo}</div>
+              <div className="text-xs text-slate-400 uppercase tracking-widest font-bold mt-1">Max Combo</div>
             </div>
           </div>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <button 
               onClick={startGame}
-              className="bg-primary hover:bg-primary/90 text-white font-medium py-3 px-8 rounded-xl shadow-md transition-colors"
+              className="bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3.5 px-8 rounded-full shadow-md transition-all active:scale-95"
             >
               Chơi lại
             </button>
             <Link 
               href="/games"
-              className="bg-secondary hover:bg-secondary/80 text-secondary-foreground font-medium py-3 px-8 rounded-xl shadow-sm transition-colors"
+              className="bg-slate-100 hover:bg-slate-200 text-slate-800 dark:bg-slate-800 dark:text-white font-bold py-3.5 px-8 rounded-full shadow-sm transition-all active:scale-95 text-center"
             >
               Về trang Games
             </Link>
@@ -246,66 +246,47 @@ export default function SpeedFormulaPage() {
   const isDanger = timeLeft <= 10
 
   return (
-    <div className="container mx-auto py-6 px-4 max-w-3xl min-h-[80vh] flex flex-col">
+    <div className="container mx-auto py-6 px-4 max-w-3xl min-h-[80vh] flex flex-col space-y-6">
       {/* Header Info */}
-      <div className="flex items-center justify-between mb-8">
+      <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
-          <Link href="/games" className="p-2 bg-muted rounded-lg hover:bg-muted/80 transition-colors">
-            <ArrowRight className="w-5 h-5 rotate-180" />
+          <Link href="/games" className="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl hover:bg-slate-50 transition-colors shadow-xs">
+            <ArrowRight className="w-5 h-5 rotate-180 text-slate-700 dark:text-slate-350" />
           </Link>
-          <div className="flex items-center gap-2">
-            <Timer className={`w-6 h-6 ${isDanger ? 'text-destructive animate-pulse' : 'text-primary'}`} />
-            <span className={`text-2xl font-bold font-mono ${isDanger ? 'text-destructive' : ''}`}>
+          <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 px-4 py-2 rounded-full font-bold">
+            <Timer className={`w-5 h-5 ${isDanger ? 'text-rose-500 animate-pulse' : 'text-indigo-600'}`} />
+            <span className={`text-xl font-black font-mono ${isDanger ? 'text-rose-500' : 'text-slate-850 dark:text-slate-200'}`}>
               {timeLeft}s
             </span>
           </div>
         </div>
-        
-        <div className="flex items-center gap-6">
-          <AnimatePresence>
-            {combo > 1 && (
-              <motion.div 
-                initial={{ opacity: 0, scale: 0.5 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.5 }}
-                key={combo}
-                className="bg-amber-100 dark:bg-amber-900/30 text-amber-600 dark:text-amber-500 font-black px-3 py-1 rounded-lg text-lg flex items-center gap-1"
-              >
-                <Zap className="w-4 h-4" /> x{combo}
-              </motion.div>
-            )}
-          </AnimatePresence>
-          <div className="text-3xl font-black text-primary">{score}</div>
+
+        <div className="flex items-center gap-3">
+          {combo > 1 && (
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              className="bg-gradient-to-r from-amber-500 to-orange-500 text-white font-extrabold text-xs px-3 py-1.5 rounded-full shadow-sm flex items-center gap-1"
+            >
+              <Zap className="w-3.5 h-3.5 fill-current" /> COMBO X{combo}
+            </motion.div>
+          )}
+
+          <div className="bg-indigo-50 dark:bg-indigo-950 border border-indigo-200 dark:border-indigo-800 px-4 py-2 rounded-full font-bold text-indigo-600 dark:text-indigo-300 text-sm">
+            Điểm: <span className="font-black text-lg">{score}</span>
+          </div>
         </div>
       </div>
 
-      {/* Progress Bar */}
-      <div className="w-full bg-muted rounded-full h-3 mb-10 overflow-hidden">
-        <motion.div 
-          className={`h-full rounded-full ${isDanger ? 'bg-destructive' : 'bg-primary'}`}
-          initial={{ width: '100%' }}
-          animate={{ width: `${(timeLeft / 60) * 100}%` }}
-          transition={{ ease: "linear", duration: 1 }}
-        />
-      </div>
-
-      {/* Game Card */}
-      <div className="flex-1 flex flex-col items-center justify-center">
+      <div className="flex-1 flex items-center justify-center">
+        {/* Play Card Box */}
         <motion.div 
           key={currentQuestionIndex}
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ 
-            opacity: 1, 
-            x: 0,
-            rotate: feedback === 'wrong' ? [-2, 2, -2, 2, 0] : 0 
-          }}
-          transition={{ duration: 0.3 }}
-          className={`w-full max-w-2xl bg-card border-2 rounded-3xl p-8 md:p-12 shadow-lg relative overflow-hidden
-            ${feedback === 'correct' ? 'border-emerald-500 bg-emerald-500/5' : 
-              feedback === 'wrong' ? 'border-destructive bg-destructive/5' : 'border-border'}
-          `}
+          initial={{ opacity: 0, scale: 0.98 }}
+          animate={{ opacity: 1, scale: 1 }}
+          className="w-full bg-white dark:bg-slate-900 border border-slate-200/80 dark:border-slate-800 rounded-3xl p-6 sm:p-8 shadow-sm relative overflow-hidden"
         >
-          {/* Card feedback overlay */}
+          {/* Answer Status feedback overlays */}
           <AnimatePresence>
             {feedback === 'correct' && (
               <motion.div 
@@ -314,7 +295,7 @@ export default function SpeedFormulaPage() {
                 exit={{ opacity: 0 }}
                 className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 bg-emerald-500/10"
               >
-                <Check className="w-32 h-32 text-emerald-500/50" />
+                <Check className="w-32 h-32 text-emerald-500/50 stroke-[3]" />
               </motion.div>
             )}
             {feedback === 'wrong' && (
@@ -322,31 +303,31 @@ export default function SpeedFormulaPage() {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 bg-destructive/10"
+                className="absolute inset-0 flex items-center justify-center pointer-events-none z-10 bg-rose-500/10"
               >
-                <X className="w-32 h-32 text-destructive/50" />
+                <X className="w-32 h-32 text-rose-500/50 stroke-[3]" />
               </motion.div>
             )}
           </AnimatePresence>
 
-          <div className="text-center mb-12">
-            <p className="text-muted-foreground font-medium mb-6">Chọn tên đúng cho công thức bên dưới:</p>
-            <div className="text-2xl sm:text-4xl md:text-5xl py-6 flex justify-center overflow-x-auto max-w-full">
+          <div className="text-center mb-8">
+            <p className="text-slate-500 dark:text-slate-400 font-bold text-xs sm:text-sm uppercase tracking-widest mb-4">Chọn tên đúng cho công thức bên dưới</p>
+            <div className="text-2xl sm:text-4xl md:text-5xl py-6 flex justify-center overflow-x-auto max-w-full bg-slate-50/80 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800/80 rounded-2xl shadow-inner font-extrabold text-slate-900 dark:text-white">
               <KatexRenderer math={q.formula} inline={false} />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 relative z-20">
             {q.options.map((option, idx) => {
-              let btnClass = "bg-muted hover:bg-muted/80 text-foreground border-transparent"
+              let btnClass = "bg-white dark:bg-slate-900 border-slate-200/85 dark:border-slate-800 text-slate-800 dark:text-slate-200 hover:border-indigo-400 dark:hover:border-indigo-700 hover:bg-indigo-50/20"
               
               if (feedback !== null) {
                 if (idx === q.correctIndex) {
-                  btnClass = "bg-emerald-500 text-white border-emerald-600 shadow-[0_0_15px_rgba(16,185,129,0.5)] z-20"
+                  btnClass = "bg-emerald-500 border-emerald-600 text-white shadow-md shadow-emerald-500/20 z-20 font-bold"
                 } else if (feedback === 'wrong' && idx !== q.correctIndex) {
-                  btnClass = "opacity-30 bg-muted text-muted-foreground border-transparent"
+                  btnClass = "opacity-30 bg-slate-100 border-transparent text-slate-400"
                 } else if (feedback === 'correct' && idx !== q.correctIndex) {
-                  btnClass = "opacity-30 bg-muted text-muted-foreground border-transparent"
+                  btnClass = "opacity-30 bg-slate-100 border-transparent text-slate-400"
                 }
               }
 
@@ -356,7 +337,7 @@ export default function SpeedFormulaPage() {
                   onClick={() => handleAnswer(idx)}
                   disabled={feedback !== null}
                   className={`
-                    p-4 rounded-xl border-2 font-medium text-lg transition-all overflow-hidden
+                    p-4 rounded-2xl border-2 font-bold text-base sm:text-lg transition-all overflow-hidden cursor-pointer flex items-center justify-center
                     ${btnClass}
                   `}
                 >
