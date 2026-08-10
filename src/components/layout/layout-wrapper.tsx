@@ -14,5 +14,5 @@ export function LayoutWrapper({ children }: { children: React.ReactNode }) {
     }
   }, [darkMode]);
 
-  return <div className="flex min-h-screen w-full max-w-full overflow-x-hidden bg-slate-50 dark:bg-slate-950">{children}</div>;
+  return <div className="flex min-h-screen w-full bg-[#FAF6F0] dark:bg-[#0d1117] text-slate-900 dark:text-slate-50">{children}</div>;
 }
