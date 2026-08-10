@@ -150,8 +150,7 @@ html {
 
 body {
   font-family: var(--font-sans);
-  background: linear-gradient(135deg, #f8fafc 0%, #f0f9ff 50%, #faf5ff 100%);
-  background-attachment: fixed;
+  background: #FAF6F0;
   color: var(--color-text-primary);
   transition: background-color 0.3s ease, color 0.3s ease;
   -webkit-font-smoothing: antialiased;
